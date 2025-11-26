@@ -4,10 +4,13 @@
    
    # a lista é separada considerando sua pasta!
 
+   # script de subvolumes do btrfs
+   ../subvolume.nix
+
    # configura como um sistema efêmero
    ./ephemeral/ephemeral.nix
    ./ephemeral/persist.nix
-   ../subvolume.nix
+
    
    # configuração do sistema
    ./system/basic.nix
