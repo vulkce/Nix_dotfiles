@@ -1,5 +1,7 @@
 ```bash
 
+# esse script é um script de instalação para o meu sistema! ^^
+
 mkfs.btrfs -L nixos /dev/sdX
 
 # Montar e criar subvolumes
