@@ -27,6 +27,11 @@
     priority = 5; # preferencia pela zram
   };
 
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
   # swap normal
 #  swapDevices = [
 #    {

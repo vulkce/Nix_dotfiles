@@ -1,7 +1,7 @@
 { config, lib, inputs, pkgs, ... }: {
 
   # xserver
-  services.xserver.enable = true
+  services.xserver.enable = true;
 
   # SDDM
   services.displayManager.sddm.enable = true;
