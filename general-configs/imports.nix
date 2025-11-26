@@ -10,7 +10,6 @@
    # configura como um sistema efêmero
    ./ephemeral/ephemeral.nix
    ./ephemeral/persist.nix
-
    
    # configuração do sistema
    ./system/basic.nix
