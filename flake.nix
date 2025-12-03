@@ -26,7 +26,12 @@
       specialArgs = { inherit inputs; };
 
       modules = [
-        ./general-configs/imports.nix
+        ./general-configs/system/system.nix
+        ./general-configs/system/interfaces.nix
+        ./general-configs/system/mounts.nix
+        ./general-configs/packages/packages.nix
+        ./general-configs/packages/special-pkgs.nix
+        ./general-configs/users/vulkce.nix
 
         nix-flatpak.nixosModules.nix-flatpak
         impermanence.nixosModules.impermanence

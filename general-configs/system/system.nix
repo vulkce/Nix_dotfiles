@@ -7,7 +7,7 @@
 
   # define e configura o kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = [ "hid_playstation" "hid_sony" "uinput" ]; # modulos do kernel
+  boot.kernelModules = [ "kvm-amd" "hid_playstation" "hid_sony" "uinput" ]; # modulos do kernel
 
   # nome do sistema
   networking.hostName = "flake";
@@ -107,7 +107,6 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   networking.useDHCP = lib.mkDefault true;
