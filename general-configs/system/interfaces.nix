@@ -8,6 +8,8 @@
   # SDDM
   services.displayManager.sddm.enable = false;
   services.displayManager.sddm.wayland.enable = false;
+  
+  # GREETER
   services.displayManager.cosmic-greeter.enable = true;
 
 # -------- DEs --------
