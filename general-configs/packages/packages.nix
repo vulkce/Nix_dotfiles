@@ -33,7 +33,7 @@
     hyprpaper
     waybar
     labwc
-];
+  ];
 
 # -------- FLATPAK --------
 
