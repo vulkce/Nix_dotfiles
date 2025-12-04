@@ -25,6 +25,7 @@
     devspace
     sqlitebrowser
     jetbrains.idea-community
+    javaPackages.compiler.openjdk25
 
     # coisas para WMs & DEs
     alacritty
