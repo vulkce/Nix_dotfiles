@@ -55,6 +55,7 @@
     { appId = "app.zen_browser.zen"; origin = "flathub"; }
               "org.vinegarhq.Sober"
               "net.newpipe.NewPipe"
+              "org.raspberrypi.rpi-imager"
   ];
 
   # atualização automática:
