@@ -56,6 +56,7 @@
               "org.vinegarhq.Sober"
               "net.newpipe.NewPipe"
               "org.raspberrypi.rpi-imager"
+    { appId = "com.bitwarden.desktop"; origin = "flathub"; }
   ];
 
   # atualização automática:
