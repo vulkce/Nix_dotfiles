@@ -85,10 +85,12 @@
   ];
 
   # atualização automática:
-  services.flatpak.update.onActivation = true;
-  services.flatpak.update.auto = {
-    enable = true;
-    onCalendar = "weekly";
+  services.flatpak.update = {
+    onActivation = true;
+    auto = {
+      enable = true;
+      onCalendar = "weekly";
+    }
   };
 
 }
