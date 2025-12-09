@@ -52,7 +52,7 @@
   
   # aplicativos declarados
   services.flatpak.packages = [
-    "app.zen_browser.zen"; 
+    "app.zen_browser.zen" 
     "org.vinegarhq.Sober"
     "net.newpipe.NewPipe"
     "org.raspberrypi.rpi-imager"
