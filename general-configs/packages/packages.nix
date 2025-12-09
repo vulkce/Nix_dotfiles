@@ -62,7 +62,6 @@
       name = "PureOS"; 
       location = "https://store.puri.sm/repo/stable/pureos.flatpakrepo"; 
     }
-  
   ];
   
   # aplicativos declarados
@@ -92,7 +91,6 @@
       appId = "com.bitwarden.desktop";
       origin = "flathub";
     }
-
   ];
 
   # atualização automática:
