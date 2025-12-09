@@ -84,8 +84,8 @@
     }
     
     {
-    appId = "org.raspberrypi.rpi-imager";
-    origin = "flathub";
+      appId = "org.raspberrypi.rpi-imager";
+      origin = "flathub";
     }
     
     {
