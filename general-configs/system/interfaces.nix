@@ -15,17 +15,15 @@
 
 # -------- DEs --------
 
-  # PLASMA
   services  = { 
     # WAYLAND
-    desktopManager = {
+    desktopManager = { 
       plasma6.enable = false; # plasma
       cosmic.enable = true; # cosmic
       gnome.enable = false; # gnome
     };
-    
     # xserver
-    xserver.desktopManager = {
+    xserver.desktopManager = { 
       xfce.enable = true; # xfce
       cinnamon.enable = false; # cinnamon
     };
@@ -41,7 +39,7 @@
       xwayland.enable = true;
     };      
   }; 
-
+  
   # xserver WMs
   services.xserver.windowManager = {
     i3.enable = false; # i3 WM
