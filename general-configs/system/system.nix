@@ -73,7 +73,6 @@
   nix.gc = {
     automatic = false;
     dates = [ "weekly" ]; # chama semanalmente
-   # options = "--delete-older-than 30d"; # deleta todas a generations
   };
 
   # habilita zram
@@ -97,8 +96,6 @@
 #    }
 #  ];
 
-
-
 # -------- HARDWARE --------
 
   imports =
@@ -118,6 +115,4 @@
   # habilita suporte ao openZFS
 #  networking.hostId = "8bec9fba";
 #  boot.supportedFilesystems = [ "zfs" ];
-
-
 }
