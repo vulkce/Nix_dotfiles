@@ -39,7 +39,7 @@
   specialisation = {
     Home = {
       inheritParentConfig = true;
-      system.nixos.tags = [ "Home" ]
+      system.nixos.tags = [ "Home" ];
       # home separada
       fileSystems."/home" = {
         device = "/dev/disk/by-label/home";
@@ -49,7 +49,7 @@
     };
     TempHome = {
       inheritParentConfig = true;
-      system.nixos.tags = [ "TempHome" ]
+      system.nixos.tags = [ "TempHome" ];
       # home interna
       fileSystems."/home" = {
         device = "none"; 
