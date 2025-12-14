@@ -8,6 +8,7 @@
     kernelModules = [ "kvm-amd" "hid_playstation" "hid_sony" "uinput" ]; # modulos do kernel
     supportedFilesystems = [ "zfs" ]; # filesystems extras
     loader.systemd-boot.enable = true; # usa systemd-boot
+    zfs.removeLinuxDRM = true; # protege o zfs caso futuras atts de kernels quebrem o zfs por conta da GPL
   };
 
   # timezone
