@@ -31,7 +31,6 @@
         ./general-configs/system/mounts.nix
         ./general-configs/packages/packages.nix
         ./general-configs/packages/special-pkgs.nix
-        ./general-configs/users/vulkce.nix
 
         nix-flatpak.nixosModules.nix-flatpak
         impermanence.nixosModules.impermanence
