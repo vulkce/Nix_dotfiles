@@ -1,35 +1,33 @@
 { config, lib, inputs, pkgs, ... }: {
-
-  # xserver
-  services.xserver.enable = true;
-
-# -------- LOGIN --------
-
-  services.displayManager = {
-    cosmic-greeter.enable = true; # cosmic greeter
-    sddm = { # SDDM
-      enable = false;
-      wayland.enable = false;
+  
+  services = {
+    # LOGIN_MANAGER
+    displayManager = {
+      cosmic-greeter.enable = true; # cosmic greeter
+      sddm = { # SDDM
+        enable = false;
+        wayland.enable = false;
+      };
     };
-  };
-
-# -------- DEs --------
-
-  services = { 
     # WAYLAND
-    desktopManager = { 
+    desktopManager = { # DEs
       plasma6.enable = false; # plasma
       cosmic.enable = true; # cosmic
       gnome.enable = false; # gnome
     };
     # xserver
-    xserver.desktopManager = { 
-      xfce.enable = true; # xfce
-      cinnamon.enable = false; # cinnamon
+    xserver = {
+      enable = false; # habilita o servidor X
+      windowManager = { # WMs
+        i3.enable = false; # i3 WM
+        openbox.enable = false; # openbox
+      };
+      desktopManager = { # DEs
+        xfce.enable = false; # xfce
+        cinnamon.enable = false; # cinnamon
+      };
     };
   };
-
-# -------- WMs -------- 
 
   # wayland WMs
   programs = {
@@ -39,12 +37,6 @@
       xwayland.enable = true;
     };      
   }; 
-  
-  # xserver WMs
-  services.xserver.windowManager = {
-    i3.enable = false; # i3 WM
-    openbox.enable = false; # openbox
-  };
 
 # -------- EXCLUDE --------
 
