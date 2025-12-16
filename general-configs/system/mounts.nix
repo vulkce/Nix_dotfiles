@@ -1,26 +1,27 @@
 { config, lib, pkgs, ... }: {
 
 # -------- SYSTEM --------
-
+# as options são necessárias para o BTRFS
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
+    device = "nixos/system/root";
     fsType = "zfs";
   #  options = [ "subvol=root" "noatime" ];
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-label/nixos";
+    device = "nixos/system/nix";
     fsType = "zfs";
   #  options = [ "subvol=nix" "compress=zstd" "noatime" ];
   };
 
   fileSystems."/persist" = {
-    device = "/dev/disk/by-label/nixos";
+    device = "nixos/system/persist";
     fsType = "zfs";
   #  options = [ "subvol=persist" "compress=zstd" "noatime" ];
     neededForBoot = true;
   };
-
+  
+  # nunca tocar
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/BOOT";
     fsType = "vfat";
@@ -74,17 +75,10 @@
       "/var/lib/nixos"
       "/var/lib/nixos-containers"
       "/var/lib/systemd/coredump"
-      "/etc/NetworkManager/system-connections"
-      "/general-configs"
-      "/home-manager"
-      "/.git" 
+      "/etc/NetworkManager/system-connections" 
     ];
     files = [
       "/etc/machine-id"
-      "/flake.nix"
-      "/flake.lock"
-      "/subvolume.nix"
-      "/bash.sh"
     ];
   };
 
