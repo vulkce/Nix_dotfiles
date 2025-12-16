@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
@@ -25,4 +25,23 @@
     btrfs subvolume create /btrfs_tmp/root
     umount /btrfs_tmp
   '';
+
+  filesystem = {
+    "/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=root" "noatime" ];
+    };
+    "/nix" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "subvol=persist" "noatime" ];
+    };
+    "/persist" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      neededForBoot = true;
+      options = [ "subvol=persist" "compress=zstd" "noatime" ];
+    };
+  };
 }

@@ -3,23 +3,27 @@
 # esse script é um script SIMPLES de instalação para o meu sistema! ^^
 resp="n"
 
+echo "--------------LEMBRETES--------------"
 echo "lembre-se de ter uma home criada em XFS antes de executar isso!"
 echo "rode como root para funcionar!"
-echo "---------------------------------"
-echo "digite 1 para BTRFS e 2 para ZFS"
-read fstype
-echo "escolhido: $fstype"
-echo "-------------------"
+echo "comente o packages.nix das flakes para uma instalação limpa!"
+echo "-------------------------------------"
 
 while [ $resp = "n" ]; do
+  echo "digite '1' para BTRFS e '2' para ZFS"
+  read fstype
   echo "diga a unidade no qual o sistema vai ser instalado (/dev/sdX)"
   read unidade 
-  echo "unidade digitada: $unidade!"
+  echo "unidade digitada: $unidade"
   echo "isso está correto? (s/n)"
   read resp
+  echo "-------------------"
 done
 
 if [ "$fstype" = "1" ]; then
+
+  # muda nas configurações para btrfs
+  sed -i '5c\   ./filesystems/btrfs.nix # importa o filesystem' /persist/general-configs/system/system.nix
 
   # -------- BTRFS --------
   mkfs.btrfs -L nixos $unidade
@@ -30,7 +34,6 @@ if [ "$fstype" = "1" ]; then
   btrfs subvolume create /mnt/root
   btrfs subvolume create /mnt/nix
   btrfs subvolume create /mnt/persist
-  btrfs subvolume create /mnt/var_log
 
   # Criar snapshot vazia
   btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
@@ -46,7 +49,6 @@ if [ "$fstype" = "1" ]; then
   # Montar outros subvolumes do sistema
   mount -o subvol=nix,compress=zstd,noatime /dev/disk/by-label/nixos /mnt/nix
   mount -o subvol=persist,compress=zstd,noatime /dev/disk/by-label/nixos /mnt/persist
-  mount -o subvol=var_log,compress=zstd,noatime /dev/disk/by-label/nixos /mnt/var/log #opcional
 
   # Montar boot
   mount /dev/disk/by-label/BOOT /mnt/boot
@@ -60,6 +62,9 @@ else
 
   # -------- ZFS --------
   # estou usando atualmente
+
+  # muda nas configurações para zfs
+  sed -i '5c\   ./filesystems/zfs.nix # importa o filesystem' /persist/general-configs/system/system.nix
 
   zpool create -f -o ashift=12 nixos $unidade # ashift=12 é bom para SSDs
 

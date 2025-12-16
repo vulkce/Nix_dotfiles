@@ -1,4 +1,9 @@
 { config, lib, pkgs, modulesPath, ... }: {
+ 
+  imports = [ 
+    (modulesPath + "/installer/scan/not-detected.nix") # importa configurações de hardware não detectadas 
+    ./filesystems/zfs.nix # importa o filesystem
+  ];
 
 # -------- NIXOS --------
 
@@ -27,32 +32,7 @@
     initrd.kernelModules = [ 
       "dm-snapshot" 
     ];
-    # configura comando pós post para raiz efêmera com zfs
-    initrd.systemd = {
-      enable = true;
-      services.initrd-rollback-root = {
-        after = [ 
-          "zfs-import-nixos.service"
-        ];
-        wantedBy = [ 
-          "initrd.target" 
-        ];
-        before = [ 
-          "sysroot.mount" 
-        ];
-        path = with pkgs; [ zfs ];
-        description = "Rollback para SnapShot em branco";
-        unitConfig.DefaultDependencies = "no";
-        serviceConfig.Type = "oneshot";
-        script = ''
-          zfs rollback -r nixos/system/root@blank
-        '';
-      };
-    };
     loader.systemd-boot.enable = true; # usa systemd-boot
-    # zfs
-    supportedFilesystems = [ "zfs" ]; # filesystems extras
-    zfs.removeLinuxDRM = true; # protege o zfs caso futuras atts de kernels quebrem o zfs por conta da GPL
   };
 
   # options do networking
@@ -102,11 +82,73 @@
   # versão no qual a primeira build foi feita!
   system.stateVersion = "26.05";
 
-# -------- Users --------
+
+# -------- FILESYSTEM --------
+
+  # nunca tocar
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/BOOT";
+    fsType = "vfat";
+    options = [ "fmask=0077" "dmask=0077" ];
+  };
+
+  # persistencia de um sistema efêmero
+  environment.persistence."/persist" = {
+    enable = true;
+    hideMounts = true;
+    directories = [
+      "/etc/nixos"
+      "/var/lib/nixos"
+      "/var/lib/nixos-containers"
+      "/var/lib/systemd/coredump"
+      "/etc/NetworkManager/system-connections" 
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
+
+  # TempHome
+  specialisation = {
+    Home = {
+      inheritParentConfig = true;
+      configuration = {
+        system.nixos.tags = [ "Home" ];
+        # home separada
+        fileSystems."/home" = {
+          device = "/dev/disk/by-label/home";
+          fsType = "xfs";
+          options = [ "noatime" "nofail" "x-systemd.device-timeout=5" ];
+        };
+      };
+    };
+    TempHome = {
+      inheritParentConfig = true;
+      configuration = {
+        system.nixos.tags = [ "TempHome" ];
+        # home interna
+        fileSystems."/home" = {
+          device = "none"; 
+          fsType = "tmpfs"; # filesystem temporário na ram
+          options = [ "size=8G" "mode=777" ]; # options para o tmpfs
+        };
+        # usa systemd para criar uma home
+        systemd.tmpfiles.settings."10-home-vulkce" = {
+          "/home/vulkce".d = {
+            mode = "0755";
+            user = "vulkce";
+            group = "users";
+          };
+        };
+      };
+    };
+  };
+
+# -------- USERS --------
 
   users.users.vulkce = {
     isNormalUser = true;
-    createHome = false;
+    createHome = true;
     home = "/home/vulkce"; 
     hashedPasswordFile = "/persist/passwords/vulkce";
     extraGroups = [ "wheel" "networkmanager" "vboxusers" "docker" ];
@@ -120,6 +162,29 @@
       gnome-secrets
       mission-center
     ];
+  };
+
+  fileSystems = {
+    "/home/vulkce/Documents/etc1" = {
+      device = "/dev/disk/by-uuid/2896792c-503e-4e52-bbd6-05fc5ae67675";
+      fsType = "btrfs";
+      options = [ "users" "exec" "nofail" ];
+    };
+    "/home/vulkce/Documents/HD1" = {
+      device = "/dev/disk/by-uuid/2a01b06c-f29d-4375-9c18-f5d3733df8e7";
+      fsType = "btrfs";
+      options = [ "users" "exec" "nofail" ];
+    };
+    "/home/vulkce/Documents/HD2" = {
+      device = "/dev/disk/by-uuid/1b8e11e0-d2f3-4d74-833a-1a1aca422b89";
+      fsType = "btrfs";
+      options = [ "users" "exec" "nofail" ];
+    };
+    "/home/vulkce/Documents/etc2" = {
+      device = "/dev/disk/by-uuid/d47d9f1f-c57e-41b9-95cd-48f75d0500c8";
+      fsType = "btrfs";
+      options = [ "users" "exec" "nofail" ];
+    };
   };
 
 # -------- HARDWARE --------
@@ -156,7 +221,4 @@
       };
     };
   };
-
-  # importa configurações de hardware não detectadas 
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 }
