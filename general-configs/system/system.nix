@@ -100,7 +100,7 @@
   time.timeZone = "America/Sao_Paulo";
 
   # versão no qual a primeira build foi feita!
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 
 # -------- Users --------
 
