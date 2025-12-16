@@ -26,9 +26,8 @@
       specialArgs = { inherit inputs; };
 
       modules = [
-        ./general-configs/system/system.nix
-        ./general-configs/system/interfaces.nix
-        ./general-configs/system/mounts.nix
+        ./general-configs/system.nix
+        ./general-configs/interfaces.nix
         ./general-configs/packages/packages.nix
         ./general-configs/packages/special-pkgs.nix
 
