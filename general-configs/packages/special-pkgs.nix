@@ -35,14 +35,14 @@
 
 # irei adicionar mais coisas em breve :)
 
-    virtualisation.docker = {
-      enable = false;
-      daemon.settings = {
-        experimental = true;
-        default-address-pools = [
+  virtualisation.docker = {
+    enable = false;
+    daemon.settings = {
+      experimental = true;
+      default-address-pools = [
         {
-          base = "172.30.0.0/16"; # define os ips dos containers
-          size = 24; # pode ser dividido em 24 ips
+        base = "172.30.0.0/16"; # define os ips dos containers
+        size = 24; # pode ser dividido em 24 ips
         }
       ];
     };
@@ -62,16 +62,16 @@
 
 # -------- OPENSSH --------
 
-    services.openssh = {
-      enable = true;
-      ports = [ 4080 ]; # porta do servidor ssh
-      settings = {
-        PasswordAuthentication = true; # permite login por senha
-        KbdInteractiveAuthentication = false; # login interativo
-        PermitRootLogin = "no"; # login no root
-        AllowUsers = [ "vulkce" ];
-      };
+  services.openssh = {
+    enable = true;
+    ports = [ 4080 ]; # porta do servidor ssh
+    settings = {
+      PasswordAuthentication = true; # permite login por senha
+      KbdInteractiveAuthentication = false; # login interativo
+      PermitRootLogin = "no"; # login no root
+      AllowUsers = [ "vulkce" ];
     };
+  };
 
 # -------- KUBERNETES --------
 
