@@ -3,7 +3,6 @@
 # esse script é um script SIMPLES de instalação para o meu sistema! ^^
 # por enquanto não existem validações de entrada, então cuidado
 resp="n"
-linha="120" # facilita a minha manutenção
 
 echo "--------------LEMBRETES--------------"
 echo "rode como root para funcionar!"
