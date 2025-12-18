@@ -24,7 +24,7 @@ while [ "$resp" = "n" ]; do
     echo "lembre-se, não deve ser a mesma unidade do sistema!"
     read homeU
     mkfs.$homeFS -L home $homeU
-    sed -i "37c\          fsType = \"$homeFS\";" /mnt/persist/general-configs/filesystems/default.nix
+    sed -i "47c\          fsType = \"$homeFS\";" /mnt/persist/general-configs/default.nix
   fi
   echo "tem certeza? (s/n)"
   read resp
@@ -67,7 +67,7 @@ if [ "$fstype" = "1" ]; then
   git clone https://github.com/vulkce/ephemeral-dotfiles-nix.git /mnt/persist/ # clona as configs
 
   # muda nas configurações para btrfs
-  sed -i '5c\   ./filesystems/btrfs.nix # importa o filesystem' /mnt/persist/general-configs/system.nix
+  sed -i '5c\   ./filesystems/btrfs.nix # importa o filesystem' /mnt/persist/general-configs/default.nix
 
 else
 
@@ -104,7 +104,7 @@ else
   git clone https://github.com/vulkce/ephemeral-dotfiles-nix.git /mnt/persist/ # clona as configs
 
   # muda nas configurações para zfs
-  sed -i '5c\   ./filesystems/zfs.nix # importa o filesystem' /mnt/persist/general-configs/system.nix
+  sed -i '5c\   ./filesystems/zfs.nix # importa o filesystem' /mnt/persist/general-configs/default.nix
 
 fi
 

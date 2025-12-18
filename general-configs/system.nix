@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }: {
+{ config, lib, pkgs, ... }: {
 
 # -------- NIXOS --------
 
@@ -28,6 +28,15 @@
       "dm-snapshot" 
     ];
     loader.systemd-boot.enable = true; # usa systemd-boot
+    # filesystems extras
+    supportedFilesystems = [ 
+      "zfs" 
+      "ext4" 
+      "xfs" 
+      "ntfs" 
+      "btrfs" 
+    ];
+    zfs.removeLinuxDRM = true; # protege o zfs caso futuras atts de kernels quebrem o zfs por conta da GPL
   };
 
   # options do networking

@@ -22,9 +22,6 @@
         '';
       };
     };
-    # zfs support 
-    supportedFilesystems = [ "zfs" ]; # ativa o zfs
-    zfs.removeLinuxDRM = true; # protege o zfs caso futuras atts de kernels quebrem o zfs por conta da GPL
   };
 
   fileSystems = {
