@@ -9,9 +9,7 @@
     kdePackages.qtstyleplugin-kvantum
     gparted
     fastfetch
-    obs-studio
     gnome-disk-utility
-    protonvpn-gui
 
     # non-free
     unrar
@@ -23,7 +21,6 @@
     nodejs
     devspace
     sqlitebrowser
-    jetbrains.idea-community
     javaPackages.compiler.openjdk25
 
     # coisas para WMs & DEs

@@ -25,6 +25,7 @@
     hideMounts = true;
     directories = [
       "/etc/nixos"
+      "/var/lib/flatpak"
       "/var/lib/nixos"
       "/var/lib/nixos-containers"
       "/var/lib/systemd/coredump"
