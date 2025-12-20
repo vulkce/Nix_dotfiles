@@ -1,4 +1,8 @@
-{ config, lib, pkgs, modulesPath, ... }: {
+{ config, lib, pkgs, ... }: {
+
+  imports = [  
+    ./filesystems/zfs.nix # importa o filesystem
+  ];
   
 # -------- FILESYSTEM --------
 
@@ -32,11 +36,6 @@
       inheritParentConfig = true; # herda a configuração pai
       configuration = {
         system.nixos.tags = [ "Home" ]; # define as tags no boot
-        # Logs na ram
-        services.journald.extraConfig = ''
-          Storage = volatile
-          RuntimeMaxUse = 128M
-        '';
         # home separada
         fileSystems = {
           "/home" = {
@@ -50,7 +49,7 @@
             fsType = "tmpfs";
             options = [ "defaults" "mode=0755" "size=512M" ];
           };
-          "/home/vulkce/Downloads/" = {
+          "/home/vulkce/Downloads" = {
             device = "none";
             fsType = "tmpfs";
             options = [ "defaults" "mode=0755" "size=1GB" ];

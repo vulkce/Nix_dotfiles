@@ -26,6 +26,11 @@
       specialArgs = { inherit inputs; };
 
       modules = [
+        ./general-configs/system.nix # importa as configs do sistema
+        ./general-configs/filesystem.nix # importa as configurações padrões de particionamento
+        ./general-configs/interfaces.nix # importa as interfaces
+        ./general-configs/packages/packages.nix # importa os pacotes
+        ./general-configs/packages/special-pkgs.nix # importa pacotes especiais
 
         nix-flatpak.nixosModules.nix-flatpak
         impermanence.nixosModules.impermanence
