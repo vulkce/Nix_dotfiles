@@ -74,7 +74,7 @@ else
   # -------- ZFS --------
   # estou usando atualmente
 
-  zpool create -f -o ashift=12 mountpoint=legacy nixos $unidade # ashift=12 é bom para SSDs
+  zpool create -f -o ashift=12 nixos $unidade # ashift=12 é bom para SSDs
 
   zfs create -o mountpoint=legacy nixos/system # cria um dataset
 
@@ -104,7 +104,7 @@ else
   git clone https://github.com/vulkce/ephemeral-dotfiles-nix.git /mnt/persist/ # clona as configs
 
   # muda nas configurações para zfs
-  sed -i '4c\   ./filesystems/zfs.nix # importa o filesystem' mnt/persist/general-configs/filesystem.nix
+  sed -i '4c\   ./filesystems/zfs.nix # importa o filesystem' /mnt/persist/general-configs/filesystem.nix
 
 fi
 
