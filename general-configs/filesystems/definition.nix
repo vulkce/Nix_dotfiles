@@ -40,9 +40,6 @@ let
 
     "/nix" = {};
 
-    "/safe/system" = {
-      neededForBoot = true;
-    };
   };
 
   # =========================
@@ -125,6 +122,7 @@ let
       "/safe/system" = {
         device  = rootDevice;
         fsType  = "btrfs";
+        neededForBoot = true;
         options = commonOpts ++ [ "subvol=safe" ] [ "compress=lz4" ];
       };
     };
@@ -145,6 +143,7 @@ let
       "/safe/system" = {
         device  = "nixos/system/safe";
         fsType  = "zfs";
+        neededForBoot = true;
         options = commonOpts ++ [ "compress=lz4" ];
       };
     };
