@@ -119,7 +119,7 @@
 		mount /dev/disk/by-label/BOOT /mnt/boot
 
 		# instala o sistema
-	#	nixos-install --flake /mnt/git#flake
+		nixos-install --flake /mnt/git#flake
 
 		return 0
 	}
