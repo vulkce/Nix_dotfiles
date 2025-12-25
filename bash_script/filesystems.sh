@@ -45,11 +45,9 @@
 
                 zfs set compression=lz4 nixos/system # compressão
 
-                # cria os diretórios no liveCD 
-                mkdir -p /mnt/{nix,safe,boot,home,git}
-
                 # monta os datasets
                 mount -t zfs nixos/system/root /mnt
+                mkdir -p /mnt/{nix,safe,boot,home,git}
                 mount -t zfs nixos/system/nix /mnt/nix
                 mount -t zfs nixos/system/safe /mnt/safe
 
@@ -73,9 +71,9 @@
                         ;;
                 esac
 
-                mkdir -p /mnt/{nix/safe/system,boot,home,git}
-
                 mount /dev/disk/by-label/nixos /mnt
+
+                mkdir -p /mnt/{nix/safe/system,boot,home,git}
 
                 install # executa a instalacao
             } >> log.txt
@@ -84,11 +82,11 @@
             {
                 boot # constroi o boot
 
-                mkdir -p /mnt/{nix,boot,home,git}
-
                 mkfs.$system_fs -L nixos -f ${system_disk}2 # formata a particao do sistema
 
                 mount /dev/disk/by-label/nixos /mnt
+
+                mkdir -p /mnt/{nix,boot,home,git}
                 
                 install # executa a instalacao
             } >> log.txt
@@ -97,11 +95,11 @@
             {
                 boot # constroi o boot
 
-                mkdir -p /mnt/{nix,boot,home,git}
-
                 mkfs.f2fs -l nixos -f ${system_disk}2 # formata a particao do sistema
 
                 mount /dev/disk/by-label/nixos /mnt
+
+                mkdir -p /mnt/{nix,boot,home,git}
                 
                 install # executa a instalacao
             } >> log.txt
