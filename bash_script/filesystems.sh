@@ -1,0 +1,114 @@
+    case $system_fs in
+        btrfs)
+            {
+                boot # constroi o boot
+
+                mkfs.btrfs -L nixos ${system_disk}2
+
+                # Montar e criar subvolumes
+                mount /dev/disk/by-label/nixos /mnt
+
+                btrfs subvolume create /mnt/root
+                btrfs subvolume create /mnt/nix
+                btrfs subvolume create /mnt/safe
+
+                # Criar snapshot vazia
+                btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
+
+                umount /mnt
+
+                # Montar a raiz
+                mount -o subvol=root,compress=zstd,noatime /dev/disk/by-label/nixos /mnt
+
+                # cria os diretórios no liveCD 
+                mkdir -p /mnt/{nix,safe,boot,home,git}
+
+                # Montar outros subvolumes do sistema
+                mount -o subvol=nix,compress=zstd,noatime /dev/disk/by-label/nixos /mnt/nix
+                mount -o subvol=safe,compress=zstd,noatime /dev/disk/by-label/nixos /mnt/safe
+
+                install # executa a instalacao
+            } >> log.txt
+            ;;
+        zfs)
+            {
+                boot # constroi o boot
+
+                zpool create -f -o ashift=12 nixos ${system_disk}2 # ashift=12 é bom para SSDs  
+
+                zfs create -o mountpoint=legacy nixos/system # cria um dataset
+
+                # cria sub-datasets
+                zfs create -p -o mountpoint=legacy nixos/system/root 
+                zfs create -p -o mountpoint=legacy nixos/system/nix
+                zfs create -p -o mountpoint=legacy nixos/system/safe
+
+                zfs set compression=lz4 nixos/system # compressão
+
+                # cria os diretórios no liveCD 
+                mkdir -p /mnt/{nix,safe,boot,home,git}
+
+                # monta os datasets
+                mount -t zfs nixos/system/root /mnt
+                mount -t zfs nixos/system/nix /mnt/nix
+                mount -t zfs nixos/system/safe /mnt/safe
+
+                zfs snapshot nixos/system/root@blank # cria uma snapshot vazia do root
+
+                zfs set acltype=posixacl nixos/system # define as permissões do ZFS como POSIX
+                
+                install # executa a instalacao
+            } >> log.txt
+            ;;		
+        tmpfs) 
+            {
+                boot # constroi o boot
+
+                case $root_fs in
+                    btrfs|ext4|xfs)
+                        mkfs.$root_fs -L nixos -f ${system_disk}2
+                        ;;
+                    f2fs)
+                        mkfs.$root_fs -l nixos -f ${system_disk}2
+                        ;;
+                esac
+
+                mkdir -p /mnt/{nix/safe/system,boot,home,git}
+
+                mount /dev/disk/by-label/nixos /mnt
+
+                install # executa a instalacao
+            } >> log.txt
+            ;;
+        ext4|xfs)
+            {
+                boot # constroi o boot
+
+                mkdir -p /mnt/{nix,boot,home,git}
+
+                mkfs.$system_fs -L nixos -f ${system_disk}2 # formata a particao do sistema
+
+                mount /dev/disk/by-label/nixos /mnt
+                
+                install # executa a instalacao
+            } >> log.txt
+            ;;
+        f2fs)
+            {
+                boot # constroi o boot
+
+                mkdir -p /mnt/{nix,boot,home,git}
+
+                mkfs.f2fs -l nixos -f ${system_disk}2 # formata a particao do sistema
+
+                mount /dev/disk/by-label/nixos /mnt
+                
+                install # executa a instalacao
+            } >> log.txt
+            ;;
+        *)
+            echo "ocorreu um erro ao encontrar o FileSystem de ${system_disk}, nenhuma acao destrutiva foi realizada"
+            
+            exit 2
+            ;;
+    esac

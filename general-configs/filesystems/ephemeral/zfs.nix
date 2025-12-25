@@ -23,20 +23,22 @@
       };
     };
   };
-  # particionamento
-  fileSystems = {
-    "/" = {
-      device = "nixos/system/root";
-      fsType = "zfs";
-    };
-    "/nix" = {
-      device = "nixos/system/nix";
-      fsType = "zfs";
-    };
-    "/persist" = {
-      device = "nixos/system/persist";
-      fsType = "zfs";
-      neededForBoot = true;
-    };
-  };
+
+	# persistencia de um sistema efêmero
+	environment.persistence."/safe/system" = {
+		enable = true;
+		hideMounts = true;
+		directories = [
+		  "/etc/nixos"
+		  "/var/lib/flatpak"
+		  "/var/lib/nixos"
+		  "/var/lib/nixos-containers"
+		  "/var/lib/systemd/coredump"
+		  "/var/lib/bluetooth"
+		  "/etc/NetworkManager/system-connections" 
+		];
+		files = [
+		  "/etc/machine-id"
+		];
+	};	
 }

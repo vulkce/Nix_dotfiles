@@ -34,7 +34,8 @@
       "ext4" 
       "xfs" 
       "ntfs" 
-      "btrfs" 
+      "btrfs"
+      "f2fs"
     ];
     zfs.removeLinuxDRM = true; # protege o zfs caso futuras atts de kernels quebrem o zfs por conta da GPL
   };
@@ -45,6 +46,7 @@
     hostId = "8bec9fba"; # configura o hostId para o zfs
     networkmanager.enable = true; # usa o networkmanager
     useDHCP = lib.mkDefault true; # usa o DHCP
+    
     firewall = {
       enable = true;
       allowedTCPPorts = [ 80 4580 9090 ];
@@ -96,31 +98,8 @@
     isNormalUser = true;
     createHome = true;
     home = "/home/vulkce"; 
-    hashedPasswordFile = "/persist/passwords/vulkce";
+    hashedPasswordFile = "/home/vulkce/passwords/vulkce";
     extraGroups = [ "wheel" "networkmanager" "vboxusers" "docker" ];
-  };
-
-  fileSystems = {
-    "/home/vulkce/Documents/etc1" = {
-      device = "/dev/disk/by-uuid/2896792c-503e-4e52-bbd6-05fc5ae67675";
-      fsType = "btrfs";
-      options = [ "users" "exec" "nofail" ];
-    };
-    "/home/vulkce/Documents/HD1" = {
-      device = "/dev/disk/by-uuid/2a01b06c-f29d-4375-9c18-f5d3733df8e7";
-      fsType = "btrfs";
-      options = [ "users" "exec" "nofail" ];
-    };
-    "/home/vulkce/Documents/HD2" = {
-      device = "/dev/disk/by-uuid/1b8e11e0-d2f3-4d74-833a-1a1aca422b89";
-      fsType = "btrfs";
-      options = [ "users" "exec" "nofail" ];
-    };
-    "/home/vulkce/Documents/etc2" = {
-      device = "/dev/disk/by-uuid/d47d9f1f-c57e-41b9-95cd-48f75d0500c8";
-      fsType = "btrfs";
-      options = [ "users" "exec" "nofail" ];
-    };
   };
 
 # -------- HARDWARE --------
@@ -143,6 +122,7 @@
     cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     # configura GPU corretamente
     amdgpu.opencl.enable = true;
+
     graphics = {
       enable = true;
       enable32Bit = true;

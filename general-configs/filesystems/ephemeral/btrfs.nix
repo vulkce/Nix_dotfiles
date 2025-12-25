@@ -1,5 +1,5 @@
-{ config, lib, pkgs, ... }:
-{
+{ config, lib, pkgs, ... }: {
+  
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
     mount /dev/disk/by-label/nixos /btrfs_tmp
@@ -26,22 +26,21 @@
     umount /btrfs_tmp
   '';
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=root" "noatime" ];
-    };
-    "/nix" = {
-      device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "subvol=persist" "noatime" ];
-    };
-    "/persist" = {
-      device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      neededForBoot = true;
-      options = [ "subvol=persist" "compress=zstd" "noatime" ];
-    };
-  };
+  # persistencia de um sistema efêmero
+	environment.persistence."/safe/system" = {
+		enable = true;
+		hideMounts = true;
+		directories = [
+		  "/etc/nixos"
+		  "/var/lib/flatpak"
+		  "/var/lib/nixos"
+		  "/var/lib/nixos-containers"
+		  "/var/lib/systemd/coredump"
+		  "/var/lib/bluetooth"
+		  "/etc/NetworkManager/system-connections" 
+		];
+		files = [
+		  "/etc/machine-id"
+		];
+	};	
 }
