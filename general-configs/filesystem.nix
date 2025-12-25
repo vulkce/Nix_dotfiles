@@ -8,9 +8,9 @@
 
   fileSystems = { 
   	"/boot" = { # NUNCA TOCAR
-			device = "/dev/disk/by-label/BOOT";
-    	fsType = "vfat";
-    	options = [ "fmask=0077" "dmask=0077" ];
+      device = "/dev/disk/by-label/BOOT";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
     };
     # Userspace
     "/home/vulkce/Documents/etc1" = {

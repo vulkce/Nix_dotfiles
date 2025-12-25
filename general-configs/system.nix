@@ -96,7 +96,7 @@
 
   users.users.vulkce = {
     isNormalUser = true;
-    createHome = true;
+    createHome = false;
     home = "/home/vulkce"; 
     hashedPasswordFile = "/nix/passwords/vulkce";
     extraGroups = [ "wheel" "networkmanager" "vboxusers" "docker" ];
