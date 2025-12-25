@@ -76,11 +76,11 @@
 					zpool create -f -o ashift=12 home $home_disk # cria um pool
 					zfs create -o mountpoint=legacy home/user # cria um dataset
 					mount -t zfs home/user /mnt/home # monta o dataset
-					sed -i '11c\    zfsH = true;' /mnt/git/general-configs/filesystems/definition.nix
+					sed -i '11c\  zfsH = true;' /mnt/git/general-configs/filesystems/definition.nix
 					;;
 				tmpfs)
 					mkdir -p /mnt/nix/safe/home
-					sed -i '12c\    tmpfsH = true;' /mnt/git/general-configs/filesystems/definition.nix
+					sed -i '12c\  tmpfsH = true;' /mnt/git/general-configs/filesystems/definition.nix
 					;;
 				*) 
 					echo "ocorreu um erro ao tentar encontrar o filesystem $home_fs em $home_disk" 
@@ -96,20 +96,20 @@
 		
 		case $system_fs in
 			btrfs|zfs)
-				sed -i "9c\     fsBackend = \"$system_fs\";" /mnt/git/general-configs/filesystems/definition.nix
+				sed -i "9c\  fsBackend = \"$system_fs\";" /mnt/git/general-configs/filesystems/definition.nix
 
 				if [[ "$resp_ephemeral" == "s" || "$resp_ephemeral" == "sim" ]]; then
-    				sed -i "187c\   ./ephemeral/$system_fs.nix;" /mnt/git/general-configs/filesystems/definition.nix
+    				sed -i "187c\    ./ephemeral/$system_fs.nix;" /mnt/git/general-configs/filesystems/definition.nix
 				fi
 				;;
 			f2fs|ext4|xfs)
-				sed -i '9c\     fsBackend = "common";' /mnt/git/general-configs/filesystems/definition.nix
-				sed -i "18c\     fsRoot = \"$root_fs\";" /mnt/git/general-configs/filesystems/definition.nix
+				sed -i '9c\  fsBackend = "common";' /mnt/git/general-configs/filesystems/definition.nix
+				sed -i "18c\  fsRoot = \"$root_fs\";" /mnt/git/general-configs/filesystems/definition.nix
 				;;
 			tmpfs)
-				sed -i "9c\     fsBackend = \"$system_fs\";" /mnt/git/general-configs/filesystems/definition.nix
-				sed -i "18c\     fsRoot = \"$root_fs\";" /mnt/git/general-configs/filesystems/definition.nix
-				sed -i '13c\    tmpfs = true;' /mnt/git/general-configs/filesystems/definition.nix
+				sed -i "9c\  fsBackend = \"$system_fs\";" /mnt/git/general-configs/filesystems/definition.nix
+				sed -i "18c\  fsRoot = \"$root_fs\";" /mnt/git/general-configs/filesystems/definition.nix
+				sed -i '13c\  tmpfs = true;' /mnt/git/general-configs/filesystems/definition.nix
 				;;
 			*)
 				echo "ocorreu um erro ao encontrar o FileSystem de ${system_disk}, nenhuma acao destrutiva foi realizada"
