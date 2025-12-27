@@ -18,7 +18,7 @@ let
   fsRoot = "";
   fsHome = "";
 
-  commonOpts = [ "noatime" "nodiratime" ];
+  commonOpts = [ "noatime" ];
 
   # =========================
   # Devices - MEOW
@@ -116,7 +116,7 @@ let
         options = commonOpts ++ [ "subvol=nix" ];
       };
 
-      "/safe/system" = {
+      "/safe" = {
         device  = rootDevice;
         fsType  = "btrfs";
         neededForBoot = true;
@@ -137,7 +137,7 @@ let
         options = commonOpts;
       };
 
-      "/safe/system" = {
+      "/safe" = {
         device  = "nixos/system/safe";
         fsType  = "zfs";
         neededForBoot = true;

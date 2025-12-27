@@ -27,7 +27,7 @@
   '';
 
   # persistencia de um sistema efêmero
-	environment.persistence."/safe/system" = {
+	environment.persistence."/safe" = {
 		enable = true;
 		hideMounts = true;
 		directories = [
