@@ -32,12 +32,12 @@
         zfs)
             boot # constroi o boot
 
-            zpool create -f -o ashift=12 nixos ${system_disk}2 && \  # ashift=12 é bom para SSDs 
-            sync
-
-            zfs set acltype=posixacl nixos/system # define as permissões do ZFS como POSIX 
+            zpool create -f -o ashift=12 nixos ${system_disk}2  # ashift=12 é bom para SSDs 
+            sync 
 
             zfs create -o mountpoint=legacy nixos/system && \  # cria um dataset
+
+            zfs set acltype=posixacl nixos/system # define as permissões do ZFS como POSIX
 
             # cria sub-datasets
             zfs create -p -o mountpoint=legacy nixos/system/root && \

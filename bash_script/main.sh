@@ -50,7 +50,7 @@
 				root_fs=$(ask_choice "no tmpfs e necessario definir um FileSystem comum para o persist " ext4 xfs btrfs f2fs )
 				;;
 			btrfs|zfs)
-				resp_ephemeral=$(ask_choice "voce deseja ativar o root efemero?: (s/n)" s n sim nao)
+				resp_ephemeral=$(ask_choice "voce deseja ativar o root efemero?: (s/n) " s n sim nao)
 				;;
 			f2fs|ext4|xfs)
 				;;
