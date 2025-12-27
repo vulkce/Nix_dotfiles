@@ -86,7 +86,7 @@
 		abort)
 			success "operacao encerrada pelo usuario"; exit 130;;
 		continue)
-			break;;
+		;;
 	esac
 
 	clear
