@@ -76,7 +76,7 @@
 
             install # executa a instalacao
             ;;
-        ext4|xfs)
+        ext4|xfs|f2fs)
             boot # constroi o boot
 
             case $system_fs in
