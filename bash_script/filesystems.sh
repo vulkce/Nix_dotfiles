@@ -70,7 +70,7 @@
                     ;;
             esac
 
-            mount ${system_disk}2 /mnt
+            mount -t $root_fs ${system_disk}2 /mnt
 
             mkdir -p /mnt/{nix/safe/system,boot,home,nix/git}
 
@@ -94,7 +94,7 @@
             mkfs.f2fs -l nixos -f ${system_disk}2 # formata a particao do sistema
             sync
 
-            mount ${system_disk}2 /mnt
+            mount -t f2fs ${system_disk}2 /mnt
 
             mkdir -p /mnt/{nix,boot,home,nix/git}
             
