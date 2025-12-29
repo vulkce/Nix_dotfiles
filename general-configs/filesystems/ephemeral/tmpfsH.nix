@@ -10,6 +10,7 @@ in
       device = "/dev/disk/by-label/nixos";
       fsType = fs;
       options = [ "noatime" ];
+      neededForBoot = true;
     };
 	};
 
