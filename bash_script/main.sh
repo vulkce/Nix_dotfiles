@@ -51,8 +51,7 @@
 			info "FileSystems: [ ext4, xfs, btrfs, f2fs ]"
 			root_fs=$(ask_choice "no tmpfs e necessario definir um FileSystem comum para o persist " ext4 xfs btrfs f2fs )
 			;;
-		btrfs|zfs)
-			resp_ephemeral=$(ask_choice "voce deseja ativar o root efemero?: (s/n) " s n sim nao);;
+		btrfs|zfs) resp_ephemeral=$(ask_choice "voce deseja ativar o root efemero?: (s/n) " s n sim nao);;
 	esac
 	
 	clear
@@ -81,9 +80,8 @@
 
 	resp3=$(ask_choice "deseja continuar ou abortar? (continue/abort) " continue abort)
 
-	case "${resp3,,}" in
-		abort)
-			success "operacao encerrada pelo usuario"; exit 130;;
+	case $resp3 in
+		abort) success "operacao encerrada pelo usuario"; exit 130;;
 	esac
 
 	clear
