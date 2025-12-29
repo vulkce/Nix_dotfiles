@@ -138,7 +138,7 @@ in
         fileSystems."/home" = {
           device  = homeDevice;
           fsType  = fsHome;
-          options = [ "noatime" "nofail" "x-systemd.device-timeout=5" ];
+          options = [ "mode=0755" "noatime" "nofail" "x-systemd.device-timeout=5" ];
         };
       };
     };
