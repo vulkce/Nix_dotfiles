@@ -5,7 +5,7 @@
   # define e configura options do boot
   boot = {
     # kernel e boot
-    kernelPackages = pkgs.linuxPackages_lqx; # kernel LQX, kernel com foco em baixa latencia e gaming
+    kernelPackages = pkgs.linuxPackages; # kernel LQX, kernel com foco em baixa latencia e gaming
     kernelModules = [ # modulos do kernel
       "kvm-amd" 
       "hid_playstation" 
