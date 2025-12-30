@@ -77,9 +77,4 @@
 
             install # executa a instalacao
             ;;
-        *)
-            error "ocorreu um erro ao encontrar o FileSystem de ${system_disk}, nenhuma acao destrutiva foi realizada"
-            
-            exit 2
-            ;;
     esac

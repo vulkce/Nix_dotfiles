@@ -107,29 +107,24 @@
 				warn "LEMBRE-SE DE EXPORTAR O POOL ZFS NO TEMPHOME!"
 				;;
 			tmpfs)
-				mkdir -p /mnt/safeH
 				sed -i \
-					-e "118c\    ./ephemeral/tmpfsH.nix" \
+					-e "131c\    ./ephemeral/tmpfsH.nix" \
 					-e "14c\  tmpfsH = true;" \
 				"$file"
-				;;
-			*) 
-				error "ocorreu um erro ao tentar encontrar o filesystem '$home_fs' em '$home_disk'" 
-				exit 2
 				;;
 		esac
 	}
 	
 	install() {
 		# clona as configs
-		git clone https://github.com/vulkce/ephemeral-dotfiles-nix.git /mnt/nix/git/
+		git clone https://github.com/vulkce/Nix_dotfiles /mnt/nix/git/
 		
 		case $system_fs in
 			btrfs|zfs)
 				sed -i "10c\  fsBackend = \"$system_fs\";" $file
 
 				case $resp_ephemeral in
-					s|sim) sed -i "117c\    ./ephemeral/$system_fs.nix" $file;;
+					s|sim) sed -i "130c\    ./ephemeral/$system_fs.nix" $file;;
 				esac
 				;;
 			f2fs|ext4|xfs)
@@ -141,13 +136,8 @@
 			tmpfs)
 				sed -i \
 					-e "10c\  fsBackend = \"$system_fs\";" \
-					-e "117c\    ./ephemeral/tmpfs.nix" \
+					-e "130c\    ./ephemeral/tmpfs.nix" \
 				"$file"
-				;;
-			*)
-				error "ocorreu um erro ao encontrar o FileSystem de '$system_disk'"
-				
-				exit 2
 				;;
 		esac
 
