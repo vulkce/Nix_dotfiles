@@ -1,5 +1,5 @@
     case $system_fs in
-        btrfs)
+        btrfs|tmpfs)
             boot # constroi o boot
 
             mkfs.btrfs -L nixos -f ${system_disk}2
@@ -25,7 +25,7 @@
 
             # Montar outros subvolumes do sistema
             mount -o subvol=nix,noatime ${system_disk}2 /mnt/nix
-            mount -o subvol=safe,compress=lz4,noatime ${system_disk}2 /mnt/safe
+            mount -o subvol=safe,noatime ${system_disk}2 /mnt/safe
 
             install # executa a instalacao
             ;;
@@ -56,15 +56,8 @@
             
             install # executa a instalacao
             ;;		
-        ext4|xfs|f2fs|tmpfs)
+        ext4|xfs|f2fs)
             boot # constroi o boot
-
-            # Define FS e diretorios
-            if [[ "$system_fs" != "tmpfs" ]]; then
-                fs="$system_fs"
-            else
-                fs="$root_fs"
-            fi
 
             # Formatação
             case "$fs" in
@@ -72,16 +65,15 @@
                     mkfs.f2fs -l nixos -f "${system_disk}2"
                     ;;
                 *)
-                    mkfs."$fs" -L nixos -f "${system_disk}2"
+                    mkfs."$system_fs" -L nixos -f "${system_disk}2"
                     ;;
             esac
 
             sync
 
-            mount -t "$fs" "${system_disk}2" /mnt
+            mount -t "$system_fs" "${system_disk}2" /mnt
 
-            # 'safe' se torna obsoleto fora do tmpfs, mas evita o uso de eval ou de duplicar arrays no codigo!
-            mkdir -p /mnt/{nix,safe,boot,home,nix/git}
+            mkdir -p /mnt/{nix,boot,home,nix/git}
 
             install # executa a instalacao
             ;;
