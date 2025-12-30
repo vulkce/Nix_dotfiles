@@ -17,6 +17,7 @@
         ".var"
         ".nix-defexpr"
         ".pki"
+        ".vscode-oss"
       ];
       files = [ 
         ".gitconfig" 
