@@ -7,6 +7,7 @@
     users.vulkce = {
       directories = [
         ".cache/nix"
+        ".cache/flatpak"
         ".ssh"
         "Desktop"
         "Pictures"
@@ -18,11 +19,13 @@
         ".nix-defexpr"
         ".pki"
         ".vscode-oss"
+        ".mozilla"
       ];
       files = [ 
         ".gitconfig" 
         ".env"
         ".gtkrc-2.0"
+        ".nix-profile"
       ];
     };
   };
