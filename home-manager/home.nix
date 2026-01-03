@@ -6,7 +6,6 @@
     stateVersion = "26.05";
     packages = with pkgs; [
       flatpak
-      firefox
       tree
       vesktop
       mission-center
