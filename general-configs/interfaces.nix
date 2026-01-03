@@ -18,6 +18,10 @@
     # xserver
     xserver = {
       enable = false; # habilita o servidor X
+      # configura o teclado
+      xkb.layout = "us";
+      xkb.variant = "intl";
+      
       windowManager = { # WMs
         i3.enable = false; # i3 WM
         openbox.enable = false; # openbox
@@ -38,11 +42,12 @@
     };      
   };
 
-  # corrigir problema com teclas mortas no gnome
+  # define o input, ibus é pesado
+  # fcitx5 é ótimo para velocidade!
   i18n.inputMethod = {
     enable = true;
-    type = "ibus";
-  }; 
+    type = "fcitx5";
+  };
 
 # -------- EXCLUDE --------
 
